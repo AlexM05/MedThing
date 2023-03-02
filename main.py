@@ -5,7 +5,7 @@ import threading
 
 def speak(voice):
     engine = pyttsx3.init()
-    engine.setProperty('rate', 200)
+    engine.setProperty('rate', 180)
     engine.say(voice)
     engine.runAndWait()
 
@@ -44,14 +44,13 @@ def main():
                     if text == "left" or text == "Left":
                         file.write(": " + repr(text))
                     elif text == "right" or text == "Right":
-
                         file.write(": " + repr(text))
                 elif text == "shoulders" or text == "Shoulders":
                     file.write("Location: \n" + repr(text))
                     threading.Thread(target=speak, args=("Is it your left or right shoulder?",)).start()
                     with sr.Microphone():
-                        print("Recognizing...")
                         text = r.recognize_google(r.record(source, duration=int(3)))
+                        print("Recognizing...")
                         file.write("Location: \n" + repr(text))
                     if text == "left" or text == "Left":
                         file.write(": " + repr(text))
@@ -61,19 +60,18 @@ def main():
                     file.write("Location: \n" + repr(text))
                     threading.Thread(target=speak, args=("Is it to the left or right side of your chest?",)).start()
                     with sr.Microphone():
-                        print("Recognizing...")
                         text = r.recognize_google(r.record(source, duration=int(3)))
+                        print("Recognizing...")
                     if text == "left" or text == "Left":
                         file.write(": " + repr(text))
                     elif text == "right" or text == "Right":
                         file.write(": " + repr(text))
                 elif text == "abdomen" or text == "Abdomen":
-                    pass
             elif text == "lower" or text == "Lower":
                 threading.Thread(target=speak, args=("Is it your legs, ankles, feet, groin, or posterior?",)).start()
                 with sr.Microphone():
-                    print("Recognizing...")
                     text = r.recognize_google(r.record(source, duration=int(3)))
+                    print("Recognizing...")
                     print(text)
                 if text == "legs" or text == "Legs":
                     file.write("Location: \n" + repr(text))
@@ -81,8 +79,8 @@ def main():
                     file.write("Location: \n" + repr(text))
                     threading.Thread(target=speak, args=("Is it your left or right ankle?",)).start()
                     with sr.Microphone():
-                        print("Recognizing...")
                         text = r.recognize_google(r.record(source, duration=int(3)))
+                        print("Recognizing...")
                         print(text)
                     if text == "left" or text == "Left":
                         file.write(": " + repr(text))
@@ -93,9 +91,8 @@ def main():
                     threading.Thread(target=speak, args=("Is it upper or lower body?",)).start()
                     speak("Is it your left or right foot?")
                     with sr.Microphone():
-                        print("Recognizing...")
                         text = r.recognize_google(r.record(source, duration=int(3)))
-                        print(text)
+                        print("Recognizing...")
                     if text == "left" or text == "Left":
                         pass
                     elif text == "right" or text == "Right":
@@ -107,9 +104,9 @@ def main():
     elif text == "no" or text == "No":
         threading.Thread(target=speak, args=("What is it that you need?",)).start()
         with sr.Microphone() as source:
-            print("Recognizing...")
             text = r.recognize_google(r.record(source, duration=int(3)))
-            print(text)
+            print("Recognizing...")
+            file.write("Paictent's request: \n" + repr(text) + "\n")
 
     elif text != "Yes" or text != "yes" or text != "no" or text != "no":
         threading.Thread(target=speak, args=("Please respond with yes or no.",)).start()
