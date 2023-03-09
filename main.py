@@ -35,6 +35,7 @@ def main():
                     text = r.recognize_google(r.record(source, duration=int(3)))
                 if text == "head" or text == "Head":
                     file.write("Location: \n" + repr(text) + "\n")
+                    return None
                 elif text == "arms" or text == "Arms":
                     file.write("Location: \n" + repr(text))
                     threading.Thread(target=speak, args=("Is it your left or right arm?",)).start()
@@ -43,8 +44,10 @@ def main():
                         text = r.recognize_google(r.record(source, duration=int(3)))
                     if text == "left" or text == "Left":
                         file.write(": " + repr(text))
+                        return None
                     elif text == "right" or text == "Right":
                         file.write(": " + repr(text))
+                        return None
                 elif text == "shoulders" or text == "Shoulders":
                     file.write("Location: \n" + repr(text))
                     threading.Thread(target=speak, args=("Is it your left or right shoulder?",)).start()
@@ -54,8 +57,10 @@ def main():
                         file.write("Location: \n" + repr(text))
                     if text == "left" or text == "Left":
                         file.write(": " + repr(text))
+                        return None
                     elif text == "right" or text == "Right":
                         file.write(": " + repr(text))
+                        return None
                 elif text == "chest" or text == "Chest":
                     file.write("Location: \n" + repr(text))
                     threading.Thread(target=speak, args=("Is it to the left or right side of your chest?",)).start()
@@ -64,9 +69,13 @@ def main():
                         print("Recognizing...")
                     if text == "left" or text == "Left":
                         file.write(": " + repr(text))
+                        return None
                     elif text == "right" or text == "Right":
                         file.write(": " + repr(text))
+                        return None
                 elif text == "abdomen" or text == "Abdomen":
+                    file.write(": " + repr(text))
+                    return None
             elif text == "lower" or text == "Lower":
                 threading.Thread(target=speak, args=("Is it your legs, ankles, feet, groin, or posterior?",)).start()
                 with sr.Microphone():
@@ -75,6 +84,7 @@ def main():
                     print(text)
                 if text == "legs" or text == "Legs":
                     file.write("Location: \n" + repr(text))
+                    return None
                 elif text == "ankles" or text == "Ankles":
                     file.write("Location: \n" + repr(text))
                     threading.Thread(target=speak, args=("Is it your left or right ankle?",)).start()
@@ -84,8 +94,10 @@ def main():
                         print(text)
                     if text == "left" or text == "Left":
                         file.write(": " + repr(text))
+                        return None
                     elif text == "right" or text == "Right":
                         file.write(": " + repr(text))
+                        return None
                 elif text == "feet" or text == "Feet":
                     file.write("Location: \n" + repr(text))
                     threading.Thread(target=speak, args=("Is it upper or lower body?",)).start()
@@ -94,13 +106,15 @@ def main():
                         text = r.recognize_google(r.record(source, duration=int(3)))
                         print("Recognizing...")
                     if text == "left" or text == "Left":
-                        pass
+                        return None
                     elif text == "right" or text == "Right":
-                        pass
+                        return None
                 elif text == "groin" or text == "Groin":
                     file.write("Location: \n" + repr(text))
+                    return None
                 elif text == "posterior" or text == "Posterior":
                     file.write("Location: \n" + repr(text))
+                    return None
     elif text == "no" or text == "No":
         threading.Thread(target=speak, args=("What is it that you need?",)).start()
         with sr.Microphone() as source:
@@ -114,3 +128,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    speak("Please wait for assistance.")
