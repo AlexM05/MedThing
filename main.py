@@ -129,4 +129,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    speak("Please wait for assistance.")
+    threading.Thread(target=speak, args=("Please wait for assistance.",)).start()
